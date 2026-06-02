@@ -1,0 +1,48 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bruin-donker:   #7c2d12;
+  --bruin-midden:   #92400e;
+  --bruin-licht:    #d4a574;
+  --creme:          #fdf6e8;
+  --creme-donker:   #f5e6d3;
+  --creme-hover:    #fef3e7;
+  --wit:            #ffffff;
+  --tekst-donker:   #3d1a00;
+  --tekst-midden:   #78716c;
+  --groen:          #16a34a;
+  --font-display:   'Lora', Georgia, serif;
+  --font-body:      'Nunito', 'Segoe UI', sans-serif;
+  --schaduw-kaart:  0 4px 20px rgba(75, 36, 8, 0.10);
+  --schaduw-hover:  0 10px 32px rgba(75, 36, 8, 0.18);
+  --radius-kaart:   18px;
+  --radius-knop:    12px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--creme);
+  color: var(--tekst-donker);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
