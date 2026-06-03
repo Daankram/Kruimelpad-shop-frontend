@@ -31,7 +31,7 @@ const AFBEELDINGEN = {
   "hg-winterjas.jpg":         "/hg-winterjas.jpg",
   // Waardebonnen & Uitjes
   "bioscoop.jpg":             "/bioscoop.jpg",
-  "waardebon-25.jpg":         "/waardebon-25.jpg",
+  "waardebon-25.jpg":         "/waardebon-25.png",
   "waardebon-50.jpg":         "/waardebon-50.jpg",
   "waardebon-75.jpg":         "/waardebon-75.jpg",
   "betovering.jpg":           "/betovering.jpg",
@@ -40,7 +40,7 @@ const AFBEELDINGEN = {
   "walibi.jpg":               "/walibi.jpg",
   "heineken-experience.jpg":  "/heineken-experience.jpg",
   "festival.jpg":             "/festival.jpg",
-  "dolle-diva-show.jpg":      "/dolle-diva-show.jpg",
+  "dolle-diva-show.jpg":      "/dolle-diva.jpg",
   "helikopter.jpg":           "/helikopter.jpg",
   "weekend-weg.jpg":          "/weekend-weg.jpg",
   // Overig
