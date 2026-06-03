@@ -6,24 +6,6 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 // Placeholder-afbeelding als een productfoto ontbreekt
 const PLACEHOLDER = "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&h=300&fit=crop&auto=format";
 
-// Merchandise items tonen het HG-logo op een warme achtergrond
-const MERCHANDISE = new Set([
-  "hg-mok.jpg","hg-handdoek.jpg","hg-tshirt.jpg","hg-hoodie.jpg",
-  "hg-koksbuis.jpg","hg-zomerjas.jpg","hg-winterjas.jpg","werkschoenen.jpg",
-]);
-
-// Labels voor merchandise-items
-const MERCHANDISE_LABELS = {
-  "hg-mok.jpg":       "Mok",
-  "hg-handdoek.jpg":  "Handdoek",
-  "hg-tshirt.jpg":    "T-shirt",
-  "hg-hoodie.jpg":    "Hoodie",
-  "hg-koksbuis.jpg":  "Koksbuis",
-  "werkschoenen.jpg": "Werkschoenen",
-  "hg-zomerjas.jpg":  "Zomerjas",
-  "hg-winterjas.jpg": "Winterjas",
-};
-
 // Afbeeldingen per beloningsnaam
 const AFBEELDINGEN = {
   // Eten & Drinken
@@ -67,9 +49,6 @@ function getAfbeelding(bestandsnaam) {
   return AFBEELDINGEN[bestandsnaam] || PLACEHOLDER;
 }
 
-function isMerchandise(bestandsnaam) {
-  return MERCHANDISE.has(bestandsnaam);
-}
 
 // ============================================================
 // HOOFD APP
@@ -223,8 +202,6 @@ function BeloningKaart({ beloning, vertraging, onClick }) {
   const [hover, setHover] = useState(false);
   const [imgFout, setImgFout] = useState(false);
   const meta = CATEGORIE_META[beloning.categorie] || { kleur: "#7c2d12", emoji: "🎁" };
-  const isHGMerchandise = isMerchandise(beloning.afbeelding);
-
   return (
     <div
       onClick={onClick}
@@ -236,24 +213,13 @@ function BeloningKaart({ beloning, vertraging, onClick }) {
         animationDelay: `${vertraging}ms`,
       }}
     >
-      {/* FOTO of HG LOGO KAART */}
       <div style={s.kaartFotoWrapper}>
-        {isHGMerchandise ? (
-          <div style={s.merchandiseWrapper}>
-            <div style={s.merchandiseBg} />
-            <img src="/logo_HG.svg" alt="Hans & Grietje" style={s.merchandiseLogo} />
-            <span style={s.merchandiseLabel}>
-              {MERCHANDISE_LABELS[beloning.afbeelding] || ""}
-            </span>
-          </div>
-        ) : (
-          <img
-            src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
-            alt={beloning.naam}
-            style={s.kaartFoto}
-            onError={() => setImgFout(true)}
-          />
-        )}
+        <img
+          src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
+          alt={beloning.naam}
+          style={s.kaartFoto}
+          onError={() => setImgFout(true)}
+        />
         <div style={{ ...s.categoriePil, background: meta.kleur }}>
           {meta.emoji} {beloning.categorie}
         </div>
@@ -296,22 +262,12 @@ function DetailModal({ beloning, onSluit }) {
       <div style={s.modal} onClick={(e) => e.stopPropagation()}>
         <button onClick={onSluit} style={s.modalSluit}>×</button>
 
-        {isMerchandise(beloning.afbeelding) ? (
-          <div style={{ ...s.merchandiseWrapper, height: "240px" }}>
-            <div style={s.merchandiseBg} />
-            <img src="/logo_HG.svg" alt="Hans & Grietje" style={{ ...s.merchandiseLogo, height: "120px" }} />
-            <span style={{ ...s.merchandiseLabel, fontSize: "18px" }}>
-              {MERCHANDISE_LABELS[beloning.afbeelding] || ""}
-            </span>
-          </div>
-        ) : (
-          <img
-            src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
-            alt={beloning.naam}
-            style={s.modalFoto}
-            onError={() => setImgFout(true)}
-          />
-        )}
+        <img
+          src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
+          alt={beloning.naam}
+          style={s.modalFoto}
+          onError={() => setImgFout(true)}
+        />
 
         <div style={s.modalBody}>
           <div style={{ ...s.categoriePil, background: meta.kleur, display: "inline-flex", marginBottom: "12px" }}>
