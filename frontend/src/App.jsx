@@ -6,40 +6,53 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 // Placeholder-afbeelding als een productfoto ontbreekt
 const PLACEHOLDER = "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&h=300&fit=crop&auto=format";
 
-// Afbeeldingen per beloningsnaam (Unsplash foto's als placeholder)
+// Merchandise items tonen het HG-logo op een warme achtergrond
+const MERCHANDISE = new Set([
+  "hg-mok.jpg","hg-handdoek.jpg","hg-tshirt.jpg","hg-hoodie.jpg",
+  "hg-koksbuis.jpg","hg-zomerjas.jpg","hg-winterjas.jpg","werkschoenen.jpg",
+]);
+
+// Labels voor merchandise-items
+const MERCHANDISE_LABELS = {
+  "hg-mok.jpg":       "Mok",
+  "hg-handdoek.jpg":  "Handdoek",
+  "hg-tshirt.jpg":    "T-shirt",
+  "hg-hoodie.jpg":    "Hoodie",
+  "hg-koksbuis.jpg":  "Koksbuis",
+  "werkschoenen.jpg": "Werkschoenen",
+  "hg-zomerjas.jpg":  "Zomerjas",
+  "hg-winterjas.jpg": "Winterjas",
+};
+
+// Afbeeldingen per beloningsnaam
 const AFBEELDINGEN = {
-  "gratis-dessert.jpg":        "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop",
-  "krat-heineken.jpg":         "https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&h=300&fit=crop",
-  "stelz.jpg":                 "https://images.unsplash.com/photo-1566633806827-abae18579193?w=400&h=300&fit=crop",
-  "speciaalbier.jpg":          "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400&h=300&fit=crop",
-  "borrelpakket.jpg":          "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
-  "kabouterbos.jpg":           "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop",
-  "hans-grietje-diner.jpg":   "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop",
-  "dikke-dirk.jpg":            "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=300&fit=crop",
-  "dolle-diva.jpg":            "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=300&fit=crop",
-  "tante-cor.jpg":             "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=300&fit=crop",
-  "moet.jpg":                  "https://images.unsplash.com/photo-1569919659476-f0852f6834b7?w=400&h=300&fit=crop",
-  "hg-mok.jpg":                "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=300&fit=crop",
-  "hg-handdoek.jpg":           "https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?w=400&h=300&fit=crop",
-  "hg-tshirt.jpg":             "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop",
-  "hg-hoodie.jpg":             "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&h=300&fit=crop",
-  "hg-koksbuis.jpg":           "https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=400&h=300&fit=crop",
-  "werkschoenen.jpg":          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
-  "hg-zomerjas.jpg":           "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=300&fit=crop",
-  "hg-winterjas.jpg":          "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400&h=300&fit=crop",
-  "bioscoop.jpg":              "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=300&fit=crop",
-  "waardebon.jpg":             "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400&h=300&fit=crop",
-  "betovering.jpg":            "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
-  "ajax.jpg":                  "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=300&fit=crop",
-  "texels.jpg":                "https://images.unsplash.com/photo-1559818488-b4e08d8f54f6?w=400&h=300&fit=crop",
-  "walibi.jpg":                "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
-  "heineken-experience.jpg":   "https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&h=300&fit=crop",
-  "festival.jpg":              "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=300&fit=crop",
-  "dolle-diva-show.jpg":       "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=300&fit=crop",
-  "helikopter.jpg":            "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=300&fit=crop",
-  "weekend-weg.jpg":           "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop",
-  "vrije-dag.jpg":             "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
-  "airpods.jpg":               "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400&h=300&fit=crop",
+  // Eten & Drinken
+  "gratis-dessert.jpg":       "/gratis-dessert.jpg",
+  "krat-heineken.jpg":        "/krat-heineken.jpg",
+  "stelz.jpg":                "/stelz.jpg",
+  "speciaalbier.jpg":         "/speciaalbier.jpg",
+  "borrelpakket.jpg":         "/borrelpakket.jpg",
+  "kabouterbos.jpg":          "/kabouterbos.jpg",
+  "hans-grietje-diner.jpg":   "/hans-grietje-diner.jpg",
+  "dikke-dirk.jpg":           "/dikke-dirk.jpg",
+  "dolle-diva.jpg":           "/dolle-diva.jpg",
+  "tante-cor.jpg":            "/tante-cor.jpg",
+  "moet.jpg":                 "/moet.jpg",
+  // Waardebonnen & Uitjes
+  "bioscoop.jpg":             "/bioscoop.jpg",
+  "waardebon-25.jpg":         "https://images.unsplash.com/photo-1561715276-a2d087060f1d?w=400&h=300&fit=crop",
+  "betovering.jpg":           "/betovering.jpg",
+  "ajax.jpg":                 "/ajax.jpg",
+  "texels.jpg":               "/texels.jpg",
+  "walibi.jpg":               "/walibi.jpg",
+  "heineken-experience.jpg":  "/heineken-experience.jpg",
+  "festival.jpg":             "/festival.jpg",
+  "dolle-diva-show.jpg":      "/dolle-diva-show.jpg",
+  "helikopter.jpg":           "/helikopter.jpg",
+  "weekend-weg.jpg":          "/weekend-weg.jpg",
+  // Overig
+  "vrije-dag.jpg":            "/vrije-dag.jpg",
+  "airpods.jpg":              "/airpods.jpg",
 };
 
 const CATEGORIE_META = {
@@ -52,6 +65,10 @@ const CATEGORIE_META = {
 
 function getAfbeelding(bestandsnaam) {
   return AFBEELDINGEN[bestandsnaam] || PLACEHOLDER;
+}
+
+function isMerchandise(bestandsnaam) {
+  return MERCHANDISE.has(bestandsnaam);
 }
 
 // ============================================================
@@ -206,6 +223,7 @@ function BeloningKaart({ beloning, vertraging, onClick }) {
   const [hover, setHover] = useState(false);
   const [imgFout, setImgFout] = useState(false);
   const meta = CATEGORIE_META[beloning.categorie] || { kleur: "#7c2d12", emoji: "🎁" };
+  const isHGMerchandise = isMerchandise(beloning.afbeelding);
 
   return (
     <div
@@ -218,14 +236,24 @@ function BeloningKaart({ beloning, vertraging, onClick }) {
         animationDelay: `${vertraging}ms`,
       }}
     >
-      {/* FOTO */}
+      {/* FOTO of HG LOGO KAART */}
       <div style={s.kaartFotoWrapper}>
-        <img
-          src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
-          alt={beloning.naam}
-          style={s.kaartFoto}
-          onError={() => setImgFout(true)}
-        />
+        {isHGMerchandise ? (
+          <div style={s.merchandiseWrapper}>
+            <div style={s.merchandiseBg} />
+            <img src="/logo_HG.svg" alt="Hans & Grietje" style={s.merchandiseLogo} />
+            <span style={s.merchandiseLabel}>
+              {MERCHANDISE_LABELS[beloning.afbeelding] || ""}
+            </span>
+          </div>
+        ) : (
+          <img
+            src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
+            alt={beloning.naam}
+            style={s.kaartFoto}
+            onError={() => setImgFout(true)}
+          />
+        )}
         <div style={{ ...s.categoriePil, background: meta.kleur }}>
           {meta.emoji} {beloning.categorie}
         </div>
@@ -239,9 +267,7 @@ function BeloningKaart({ beloning, vertraging, onClick }) {
           <div style={{ ...s.kruimelsBadge, color: meta.kleur, borderColor: meta.kleur + "40", background: meta.kleur + "10" }}>
             🍞 {beloning.kruimels.toLocaleString("nl-NL")} Kruimels
           </div>
-          <div style={s.euroBadge}>
-            € {beloning.euro % 1 === 0 ? beloning.euro.toFixed(0) : beloning.euro.toFixed(2)}
-          </div>
+
         </div>
 
         <p style={s.kaartMeer}>Klik voor meer info →</p>
@@ -270,12 +296,22 @@ function DetailModal({ beloning, onSluit }) {
       <div style={s.modal} onClick={(e) => e.stopPropagation()}>
         <button onClick={onSluit} style={s.modalSluit}>×</button>
 
-        <img
-          src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
-          alt={beloning.naam}
-          style={s.modalFoto}
-          onError={() => setImgFout(true)}
-        />
+        {isMerchandise(beloning.afbeelding) ? (
+          <div style={{ ...s.merchandiseWrapper, height: "240px" }}>
+            <div style={s.merchandiseBg} />
+            <img src="/logo_HG.svg" alt="Hans & Grietje" style={{ ...s.merchandiseLogo, height: "120px" }} />
+            <span style={{ ...s.merchandiseLabel, fontSize: "18px" }}>
+              {MERCHANDISE_LABELS[beloning.afbeelding] || ""}
+            </span>
+          </div>
+        ) : (
+          <img
+            src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
+            alt={beloning.naam}
+            style={s.modalFoto}
+            onError={() => setImgFout(true)}
+          />
+        )}
 
         <div style={s.modalBody}>
           <div style={{ ...s.categoriePil, background: meta.kleur, display: "inline-flex", marginBottom: "12px" }}>
@@ -290,9 +326,7 @@ function DetailModal({ beloning, onSluit }) {
             <div style={{ ...s.modalKruimels, color: meta.kleur }}>
               🍞 {beloning.kruimels.toLocaleString("nl-NL")} Kruimels
             </div>
-            <div style={s.modalEuro}>
-              Waarde: € {beloning.euro % 1 === 0 ? beloning.euro.toFixed(0) : beloning.euro.toFixed(2)}
-            </div>
+
           </div>
 
           <div style={s.modalInfo}>
@@ -719,6 +753,44 @@ const s = {
   },
   foutEmoji: { fontSize: "48px", marginBottom: "12px" },
   foutTekst: { color: "#dc2626", fontSize: "16px" },
+
+  // MERCHANDISE LOGO KAART
+  merchandiseWrapper: {
+    width: "100%",
+    height: "100%",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    overflow: "hidden",
+  },
+  merchandiseBg: {
+    position: "absolute",
+    inset: 0,
+    background: "linear-gradient(135deg, #fdf6e8 0%, #f5e6d3 50%, #fef3e7 100%)",
+  },
+  merchandiseLogo: {
+    position: "relative",
+    height: "80px",
+    width: "auto",
+    filter: "drop-shadow(0 2px 8px rgba(75,36,8,0.15))",
+    zIndex: 1,
+  },
+  merchandiseLabel: {
+    position: "relative",
+    zIndex: 1,
+    fontSize: "13px",
+    fontWeight: "700",
+    color: "#7c2d12",
+    background: "rgba(255,255,255,0.8)",
+    padding: "4px 12px",
+    borderRadius: "20px",
+    border: "1px solid #d4a574",
+    letterSpacing: "0.5px",
+    textTransform: "uppercase",
+  },
 
   // FOOTER
   footer: {
