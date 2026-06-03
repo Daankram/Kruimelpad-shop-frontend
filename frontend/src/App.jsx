@@ -7,45 +7,42 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const PLACEHOLDER = "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&h=300&fit=crop&auto=format";
 
 // Afbeeldingen per beloningsnaam
-const AFBEELDINGEN = {
-  // Eten & Drinken
-  "gratis-dessert.jpg":       "/gratis-dessert.jpg",
-  "krat-heineken.jpg":        "/krat-heineken.jpg",
-  "stelz.jpg":                "/stelz.jpg",
-  "speciaalbier.jpg":         "/speciaalbier.jpg",
-  "borrelpakket.jpg":         "/borrelpakket.jpg",
-  "kabouterbos.jpg":          "/kabouterbos.jpg",
-  "hans-grietje-diner.jpg":   "/hans-grietje-diner.jpg",
-  "dikke-dirk.jpg":           "/dikke-dirk.jpg",
-  "dolle-diva.jpg":           "/dolle-diva.jpg",
-  "tante-cor.jpg":            "/tante-cor.jpg",
-  "moet.jpg":                 "/moet.jpg",
-  // Hans & Grietje Merchandise
-  "hg-mok.jpg":               "/hg-mok.jpg",
-  "hg-handdoek.jpg":          "/hg-handdoek.jpg",
-  "hg-tshirt.jpg":            "/hg-tshirt.jpg",
-  "hg-hoodie.jpg":            "/hg-hoodie.jpg",
-  "hg-koksbuis.jpg":          "/hg-koksbuis.jpg",
-  "werkschoenen.jpg":         "/werkschoenen.jpg",
-  "hg-zomerjas.jpg":          "/hg-zomerjas.jpg",
-  "hg-winterjas.jpg":         "/hg-winterjas.jpg",
-  // Waardebonnen & Uitjes
-  "bioscoop.jpg":             "/bioscoop.jpg",
-  "waardebon-25.jpg":         "/waardebon-25.png",
-  "waardebon-50.jpg":         "/waardebon-50.jpg",
-  "waardebon-75.jpg":         "/waardebon-75.jpg",
-  "betovering.jpg":           "/betovering.jpg",
-  "ajax.jpg":                 "/ajax.jpg",
-  "texels.jpg":               "/texels.jpg",
-  "walibi.jpg":               "/walibi.jpg",
-  "heineken-experience.jpg":  "/heineken-experience.jpg",
-  "festival.jpg":             "/festival.jpg",
-  "dolle-diva-show.jpg":      "/dolle-diva.jpg",
-  "helikopter.jpg":           "/helikopter.jpg",
-  "weekend-weg.jpg":          "/weekend-weg.jpg",
-  // Overig
-  "vrije-dag.jpg":            "/vrije-dag.jpg",
-  "airpods.jpg":              "/airpods.jpg",
+// Afbeeldingen op basis van beloning-ID — onafhankelijk van backend bestandsnamen
+const AFBEELDINGEN_PER_ID = {
+   1: "/gratis-dessert.jpg",
+   2: "/krat-heineken.jpg",
+   3: "/stelz.jpg",
+   4: "/speciaalbier.jpg",
+   5: "/borrelpakket.jpg",
+   6: "/kabouterbos.jpg",
+   7: "/hans-grietje-diner.jpg",
+   8: "/dikke-dirk.jpg",
+   9: "/dolle-diva.jpg",
+  10: "/tante-cor.jpg",
+  11: "/moet.jpg",
+  12: "/hg-mok.jpg",
+  13: "/hg-handdoek.jpg",
+  14: "/hg-tshirt.jpg",
+  15: "/hg-hoodie.jpg",
+  16: "/hg-koksbuis.jpg",
+  17: "/werkschoenen.jpg",
+  18: "/hg-zomerjas.jpg",
+  19: "/hg-winterjas.jpg",
+  20: "/bioscoop.jpg",
+  21: "/waardebon-25.png",
+  22: "/waardebon-50.jpg",
+  23: "/waardebon-75.jpg",
+  24: "/betovering.jpg",
+  25: "/ajax.jpg",
+  26: "/texels.jpg",
+  27: "/walibi.jpg",
+  28: "/heineken-experience.jpg",
+  29: "/festival.jpg",
+  30: "/dolle-diva.jpg",
+  31: "/helikopter.jpg",
+  32: "/weekend-weg.jpg",
+  33: "/vrije-dag.jpg",
+  34: "/airpods.jpg",
 };
 
 const CATEGORIE_META = {
@@ -56,8 +53,8 @@ const CATEGORIE_META = {
   "Overige Beloningen":        { emoji: "⭐", kleur: "#dc2626" },
 };
 
-function getAfbeelding(bestandsnaam) {
-  return AFBEELDINGEN[bestandsnaam] || PLACEHOLDER;
+function getAfbeelding(id) {
+  return AFBEELDINGEN_PER_ID[id] || PLACEHOLDER;
 }
 
 
@@ -226,7 +223,7 @@ function BeloningKaart({ beloning, vertraging, onClick }) {
     >
       <div style={s.kaartFotoWrapper}>
         <img
-          src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
+          src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.id)}
           alt={beloning.naam}
           style={s.kaartFoto}
           onError={() => setImgFout(true)}
@@ -274,7 +271,7 @@ function DetailModal({ beloning, onSluit }) {
         <button onClick={onSluit} style={s.modalSluit}>×</button>
 
         <img
-          src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.afbeelding)}
+          src={imgFout ? PLACEHOLDER : getAfbeelding(beloning.id)}
           alt={beloning.naam}
           style={s.modalFoto}
           onError={() => setImgFout(true)}
